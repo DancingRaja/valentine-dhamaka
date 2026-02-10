@@ -3,24 +3,23 @@ const path = require("path");
 
 const app = express();
 
-const publicPath = path.join(__dirname, "public");
+// Path to your frontend public folder
+const publicPath = path.join(__dirname, "../public");
 
-// ✅ Serve static files FIRST (very important)
+// Serve static assets from the public folder
 app.use(express.static(publicPath));
 
-// ✅ Explicit route for index
+// Route for the home page
 app.get("/", (req, res) => {
     res.sendFile(path.join(publicPath, "index.html"));
 });
 
-// ❌ DO NOT override static files
-// Only fallback if file truly doesn't exist
+// Fallback — serve index.html for any other routes (SPA style)
 app.get("*", (req, res) => {
     res.sendFile(path.join(publicPath, "index.html"));
 });
 
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
-    console.log("Server running on port " + PORT);
+    console.log(`Server running on port ${PORT}`);
 });
