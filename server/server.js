@@ -3,24 +3,26 @@ const path = require("path");
 
 const app = express();
 
-// ✅ Serve static files (CSS, JS, images, etc.)
-app.use(express.static(path.join(__dirname, "public")));
+// Serve root directory
+app.use(express.static(__dirname));
 
-// ✅ If you are using JSON anywhere
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Serve common asset folders explicitly
+app.use("/public", express.static(path.join(__dirname, "public")));
+app.use("/css", express.static(path.join(__dirname, "css")));
+app.use("/js", express.static(path.join(__dirname, "js")));
+app.use("/assets", express.static(path.join(__dirname, "assets")));
+app.use("/images", express.static(path.join(__dirname, "images")));
 
-// ✅ Main route - serves index.html
+// Default route
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// ✅ Catch-all route (prevents 404 on refresh or deep links)
+// Catch-all
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// ✅ Render requires dynamic PORT
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
