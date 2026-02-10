@@ -1,0 +1,280 @@
+:root {
+  --primary-color: #8a1c22;
+  /* Deep Red */
+  --secondary-color: #b83b48;
+  /* Romantic Red */
+  --accent-color: #d4af37;
+  /* Gold */
+  --bg-gradient-start: #2b0a0a;
+  --bg-gradient-end: #4b0d1a;
+  --text-color: #fce4ec;
+  /* Soft Pinkish White */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end), #1a0505);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: var(--text-color);
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+.title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--accent-color);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Glassmorphism Components */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+.glass-panel:hover {
+  transform: translateY(-5px);
+}
+
+/* Buttons */
+.btn-romantic {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  padding: 16px 48px;
+  color: white;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(184, 59, 72, 0.4);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 1px;
+}
+
+.btn-romantic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.btn-romantic:hover::before {
+  left: 100%;
+}
+
+.btn-romantic:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(184, 59, 72, 0.6);
+}
+
+.btn-romantic:active {
+  transform: scale(0.95);
+}
+
+/* Floating Hearts Background Animation */
+.hearts-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(212, 175, 55, 0.3);
+  /* Goldish transparent */
+  transform: rotate(45deg);
+  animation: floatUp 8s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.heart::before {
+  left: -10px;
+}
+
+.heart::after {
+  top: -10px;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(110vh) rotate(45deg) scale(0.5);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateY(-10vh) rotate(45deg) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Map Styling */
+#map {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  filter: sepia(30%) contrast(1.1) saturate(0.8);
+  /* Vintage romantic feel */
+}
+
+/* Overlay Specifics */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 10, 10, 0.4);
+  /* Darker overlay for better text contrast */
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.msg {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  padding: 12px 30px;
+  border-radius: 30px;
+  color: var(--accent-color);
+  font-weight: 500;
+  border: 1px solid var(--glass-border);
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: none;
+  /* Hidden by default, JS toggles it */
+  animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+  from {
+    top: -50px;
+    opacity: 0;
+  }
+
+  to {
+    top: 30px;
+    opacity: 1;
+  }
+}
+
+/* Admin Specific */
+.admin-header {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  padding: 15px 40px;
+  border-radius: 50px;
+  border: 1px solid var(--glass-border);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Leaflet Compass / Controls */
+.leaflet-bar a {
+  background-color: var(--glass-bg) !important;
+  color: var(--accent-color) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+/* Custom Popup Styling */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: rgba(43, 10, 10, 0.9) !important;
+  /* Dark background */
+  color: var(--text-color) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--accent-color);
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+.leaflet-popup-content {
+  margin: 15px !important;
+  font-family: var(--font-body) !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(43, 10, 10, 0.9) !important;
+}
