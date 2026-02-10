@@ -3,28 +3,24 @@ const path = require("path");
 
 const app = express();
 
-// Serve root directory
-app.use(express.static(__dirname));
+const publicPath = path.join(__dirname, "public");
 
-// Serve common asset folders explicitly
-app.use("/public", express.static(path.join(__dirname, "public")));
-app.use("/css", express.static(path.join(__dirname, "css")));
-app.use("/js", express.static(path.join(__dirname, "js")));
-app.use("/assets", express.static(path.join(__dirname, "assets")));
-app.use("/images", express.static(path.join(__dirname, "images")));
+// ✅ Serve static files FIRST (very important)
+app.use(express.static(publicPath));
 
-// Default route
+// ✅ Explicit route for index
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
+    res.sendFile(path.join(publicPath, "index.html"));
 });
 
-// Catch-all
+// ❌ DO NOT override static files
+// Only fallback if file truly doesn't exist
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
+    res.sendFile(path.join(publicPath, "index.html"));
 });
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log("Server running on port " + PORT);
 });
