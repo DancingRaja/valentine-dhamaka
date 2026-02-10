@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hotels Nearby</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+body { margin:0; }
+
+#map { height:100vh; }
+
+.overlay {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+}
+
+.msg {
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:white;
+  padding:10px 20px;
+  border-radius:10px;
+  font-weight:bold;
+  z-index:1000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay" id="permissionOverlay">
+  <button onclick="startTracking()" style="padding:15px 30px;font-size:18px;">
+    Find Hotels Nearby
+  </button>
+</div>
+
+<div class="msg">Looking for hotels nearby...</div>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/user.js"></script>
+
+</body>
+</html>
