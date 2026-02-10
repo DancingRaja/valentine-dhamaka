@@ -1,23 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>Admin Panel</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Romantic Getaway</title>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-
-<style>
-body { margin:0; }
-#map { height:100vh; }
-</style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<div id="map"></div>
+  <!-- Floating Hearts Background -->
+  <div class="hearts-container">
+    <div class="heart" style="left: 15%; animation-duration: 11s;"></div>
+    <div class="heart" style="left: 35%; animation-duration: 9s; animation-delay: 2s;"></div>
+    <div class="heart" style="left: 60%; animation-duration: 12s; animation-delay: 4s;"></div>
+    <div class="heart" style="left: 90%; animation-duration: 8s; animation-delay: 1s;"></div>
+    <div class="heart" style="left: 5%; animation-duration: 10s; animation-delay: 3s;"></div>
+  </div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/admin.js"></script>
+  <div class="admin-header">
+    <span class="admin-title">❤️ Live Location Monitor</span>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/admin.js"></script>
 
 </body>
+
 </html>
