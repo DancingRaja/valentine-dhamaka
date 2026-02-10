@@ -14,11 +14,20 @@ const io = new Server(server, {
 
 app.use(express.static(path.join(__dirname, "../public")));
 
+// Store last known location
+let lastLocation = null;
+
 io.on("connection", (socket) => {
 
   console.log("User connected:", socket.id);
 
+  // Send last known location immediately to new connection
+  if(lastLocation) {
+    socket.emit("admin-live-location", lastLocation);
+  }
+
   socket.on("live-location", (data) => {
+    lastLocation = data; // Update cache
     io.emit("admin-live-location", data);
   });
 
