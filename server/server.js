@@ -1,44 +1,28 @@
 const express = require("express");
-const http = require("http");
-const { Server } = require("socket.io");
 const path = require("path");
 
 const app = express();
-const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    origin: "*"
-  }
+// ✅ Serve static files (CSS, JS, images, etc.)
+app.use(express.static(path.join(__dirname, "public")));
+
+// ✅ If you are using JSON anywhere
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// ✅ Main route - serves index.html
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-app.use(express.static(path.join(__dirname, "../public")));
-
-// Store last known location
-let lastLocation = null;
-
-io.on("connection", (socket) => {
-
-  console.log("User connected:", socket.id);
-
-  // Send last known location immediately to new connection
-  if(lastLocation) {
-    socket.emit("admin-live-location", lastLocation);
-  }
-
-  socket.on("live-location", (data) => {
-    lastLocation = data; // Update cache
-    io.emit("admin-live-location", data);
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
-  });
-
+// ✅ Catch-all route (prevents 404 on refresh or deep links)
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-const PORT = 3000;
+// ✅ Render requires dynamic PORT
+const PORT = process.env.PORT || 3000;
 
-server.listen(PORT, () => {
-  console.log(`Server running → http://localhost:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
